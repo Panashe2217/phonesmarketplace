@@ -45,6 +45,36 @@ export interface Database {
         };
         Relationships: [];
       };
+      orders: {
+        Row: {
+          id: string;
+          created_at: string;
+          listing_id: string;
+          buyer_contact: string;
+          buyer_phone: string | null;
+          receipt_code: string;
+          status: string;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          listing_id: string;
+          buyer_contact: string;
+          buyer_phone?: string | null;
+          receipt_code: string;
+          status?: string;
+        };
+        Update: {
+          id?: string;
+          created_at?: string;
+          listing_id?: string;
+          buyer_contact?: string;
+          buyer_phone?: string | null;
+          receipt_code?: string;
+          status?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {};
     Functions: {};

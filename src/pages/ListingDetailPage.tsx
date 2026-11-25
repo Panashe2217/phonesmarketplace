@@ -67,6 +67,9 @@ export default function ListingDetailPage() {
   // Step 2: User enters PIN and we save the order
   async function handlePinSubmit(e: React.FormEvent) {
     e.preventDefault();
+    
+    if (!listing) return; 
+
     if (pin.length < 4) {
       alert("Please enter a 4-digit PIN.");
       return;
@@ -76,7 +79,7 @@ export default function ListingDetailPage() {
 
     // Save the "order" to the database
     const { error: orderError } = await supabase.from("orders").insert({
-      listing_id: listing?.id,
+      listing_id: listing.id,
       buyer_contact: phoneNumber,
       buyer_phone: phoneNumber,
       receipt_code: "SIMULATED-" + Math.random().toString(36).substring(7).toUpperCase(),
