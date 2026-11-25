@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from "react-router";
+import { InstallBanner } from "../components/InstallBanner";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   isActive ? "nav-link nav-link--active" : "nav-link";
@@ -16,6 +17,9 @@ export default function RootLayout() {
       <main className="app-main">
         <Outlet />
       </main>
+      
+      {/* ADD THIS */}
+      <InstallBanner />
     </div>
   );
 }
