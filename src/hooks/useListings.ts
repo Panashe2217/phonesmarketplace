@@ -4,7 +4,8 @@ import type { Database } from "../lib/database.types";
 
 type Listing = Database["public"]["Tables"]["listings"]["Row"];
 
-export function useListings() {
+// Accept a search query as an argument
+export function useListings(searchQuery: string = "") {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,11 +15,17 @@ export function useListings() {
       setLoading(true);
       setError(null);
 
-      // For now, fetch all. We'll add search filtering in Phase 7.
-      const { data, error: fetchError } = await supabase
+      let query = supabase
         .from("listings")
         .select("*")
         .order("created_at", { ascending: false });
+
+      // If there's a search query, filter by title using ILIKE (case-insensitive)
+      if (searchQuery.trim()) {
+        query = query.ilike("title", `%${searchQuery.trim()}%`);
+      }
+
+      const { data, error: fetchError } = await query;
 
       if (fetchError) {
         setError(fetchError.message);
@@ -29,7 +36,7 @@ export function useListings() {
     }
 
     fetchListings();
-  }, []);
+  }, [searchQuery]); // Re-run whenever the search query changes
 
   return { listings, loading, error };
 }
