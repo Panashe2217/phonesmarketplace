@@ -101,6 +101,18 @@ export default function NewListingPage() {
 
   return (
     <div className="form-page">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+        <h1 style={{ margin: 0 }}>Post a new listing</h1>
+        <button 
+          onClick={() => {
+            localStorage.removeItem("admin_token");
+            window.location.href = "/";
+          }}
+          style={{ background: "none", border: "none", color: "red", cursor: "pointer", fontWeight: "bold" }}
+        >
+          Logout
+        </button>
+      </div>
       <h1>Post a new listing</h1>
       
       <form onSubmit={handleSubmit} className="listing-form" noValidate>
